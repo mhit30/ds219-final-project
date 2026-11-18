@@ -1,3 +1,10 @@
 :root { font-family: system-ui, sans-serif; color: #222; background: #f6f7f9; }
 body { margin: 0; }
 .app { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+button { cursor: pointer; padding: 6px 12px; border: 1px solid #ccc; border-radius: 6px; background: #fff; }
+input, select { padding: 6px; border: 1px solid #ccc; border-radius: 6px; }
+.toolbar { display: flex; gap: 8px; margin-bottom: 16px; }
+.card { background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px #0001; }
+.form { display: flex; flex-wrap: wrap; gap: 8px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 6px; border-bottom: 1px solid #eee; }
