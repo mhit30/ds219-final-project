@@ -3,6 +3,7 @@ import { openCsv, newCsv, saveCsv } from './csv'
 import EntryForm from './components/EntryForm'
 import EntryList from './components/EntryList'
 import Budget from './components/Budget'
+import Summary from './components/Summary'
 import { CATEGORIES } from './categories'
 
 // Budget rows are stored in the CSV with a month-only date (YYYY-MM)
@@ -46,6 +47,7 @@ export default function App() {
       {file && (
         <>
           <Budget budget={budget?.amount} spent={monthRows.reduce((s, r) => s + r.amount, 0)} onSet={setBudget} />
+          <Summary rows={monthRows} />
           <EntryForm categories={categories} onAdd={(r) => update([...rows, r])} />
           <EntryList rows={monthRows} onDelete={(row) => update(rows.filter((r) => r !== row))} />
         </>
