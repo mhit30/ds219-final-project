@@ -10,7 +10,7 @@ export default function EntryList({ rows, onDelete }) {
           <tr key={i}>
             <td>{r.date}</td><td>{r.category}</td><td>{r.note}</td>
             <td>${r.amount.toFixed(2)}</td>
-            <td><button onClick={() => onDelete(i)}>✕</button></td>
+            <td><button onClick={() => onDelete(r)}>✕</button></td>
           </tr>
         ))}
       </tbody>
