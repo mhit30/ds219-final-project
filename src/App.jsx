@@ -4,6 +4,8 @@ import EntryForm from './components/EntryForm'
 import EntryList from './components/EntryList'
 import Budget from './components/Budget'
 import Summary from './components/Summary'
+import Analysis from './components/Analysis'
+import Charts from './components/Charts'
 import { CATEGORIES } from './categories'
 
 // Budget rows are stored in the CSV with a month-only date (YYYY-MM)
@@ -24,6 +26,9 @@ export default function App() {
   const spending = rows.filter((r) => !isBudget(r))
   const monthRows = spending.filter((r) => r.date.startsWith(month))
   const budget = rows.find((r) => isBudget(r) && r.date === month)
+  const [y, m] = month.split('-').map(Number)
+  const prevMonth = m === 1 ? `${y - 1}-12` : `${y}-${String(m - 1).padStart(2, '0')}`
+  const prevTotal = spending.filter((r) => r.date.startsWith(prevMonth)).reduce((s, r) => s + r.amount, 0)
   const categories = [...new Set([...CATEGORIES, ...spending.map((r) => r.category)])]
 
   const update = (next) => {
@@ -48,6 +53,8 @@ export default function App() {
         <>
           <Budget budget={budget?.amount} spent={monthRows.reduce((s, r) => s + r.amount, 0)} onSet={setBudget} />
           <Summary rows={monthRows} />
+          <Analysis rows={monthRows} month={month} budget={budget?.amount} prevTotal={prevTotal} />
+          <Charts rows={monthRows} month={month} budget={budget?.amount} />
           <EntryForm categories={categories} onAdd={(r) => update([...rows, r])} />
           <EntryList rows={monthRows} onDelete={(row) => update(rows.filter((r) => r !== row))} />
         </>

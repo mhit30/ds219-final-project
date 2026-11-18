@@ -16,3 +16,6 @@ b.over { color: #ef4444; }
 .summary .card { margin-bottom: 0; }
 .summary { margin-bottom: 16px; }
 h3 { margin: 0 0 8px; }
+.summary .wide { grid-column: 1 / -1; }
+.charts { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
+@media (max-width: 600px) { .charts { grid-template-columns: 1fr; } }
