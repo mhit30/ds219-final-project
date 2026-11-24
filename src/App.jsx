@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { parseCsv } from './csv.js'
 import ExpenseForm from './ExpenseForm.jsx'
 import { useStored } from './storage.js'
+import Budgets from './Budgets.jsx'
 
 export default function App() {
   const [expenses, setExpenses] = useStored('expenses', [])
+  const [budgets, setBudgets] = useStored('budgets', {})
   const [message, setMessage] = useState('')
 
   const upload = async e => {
@@ -33,6 +35,7 @@ export default function App() {
         {message && <p>{message}</p>}
         <ExpenseForm onAdd={x => setExpenses(prev => [...prev, x])} />
       </section>
+      <Budgets expenses={expenses} budgets={budgets} setBudgets={setBudgets} />
       <section>
         <div className="row">
           <h2>Expenses</h2>
