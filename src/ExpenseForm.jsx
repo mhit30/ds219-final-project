@@ -18,7 +18,7 @@ export default function ExpenseForm({ onAdd }) {
   }
 
   return (
-    <form onSubmit={submit} className="row">
+    <form onSubmit={submit} className="inline-form">
       <input type="date" name="date" value={form.date} onChange={set} />
       <input type="number" name="amount" step="0.01" placeholder="Amount" value={form.amount} onChange={set} />
       <input name="category" placeholder="Category" value={form.category} onChange={set} />
