@@ -4,6 +4,7 @@ import ExpenseForm from './ExpenseForm.jsx'
 import { useStored } from './storage.js'
 import Budgets from './Budgets.jsx'
 import Charts from './Charts.jsx'
+import Chip from './Chip.jsx'
 
 export default function App() {
   const [expenses, setExpenses] = useStored('expenses', [])
@@ -26,12 +27,14 @@ export default function App() {
   }
 
   const sorted = [...expenses].sort((a, b) => b.date.localeCompare(a.date))
+  const total = expenses.reduce((sum, x) => sum + x.amount, 0)
 
   return (
+    <>
+    <header><div><h1>Budget Tracker</h1><p>Track spending and stay on budget.</p></div></header>
     <main>
-      <h1>Budget Tracker</h1>
       <section>
-        <h2>Add expenses</h2>
+        <div className="head"><h2>Add expenses</h2></div>
         <label className="row">
           Upload CSV (date, amount, category, note): <input type="file" accept=".csv" onChange={upload} />
         </label>
@@ -41,21 +44,22 @@ export default function App() {
       <Budgets expenses={expenses} budgets={budgets} setBudgets={setBudgets} month={month} setMonth={setMonth} />
       <Charts expenses={expenses} budgets={budgets} month={month} />
       <section>
-        <div className="row">
-          <h2>Expenses</h2>
-          {sorted.length > 0 && <button onClick={() => setExpenses([])}>Clear all</button>}
+        <div className="head">
+          <h2>Expenses <span className="muted">· {sorted.length} totaling ${total.toFixed(2)}</span></h2>
+          {sorted.length > 0 && <button className="ghost" onClick={() => setExpenses([])}>Clear all</button>}
         </div>
         {sorted.length === 0 ? <p>No expenses yet.</p> : (
           <table>
-            <thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Note</th></tr></thead>
+            <thead><tr><th>Date</th><th>Category</th><th>Note</th><th className="num">Amount</th></tr></thead>
             <tbody>
               {sorted.map((x, i) => (
-                <tr key={i}><td>{x.date}</td><td>{x.category}</td><td>${x.amount.toFixed(2)}</td><td>{x.note}</td></tr>
+                <tr key={i}><td>{x.date}</td><td><Chip name={x.category} /></td><td className="muted">{x.note}</td><td className="num">${x.amount.toFixed(2)}</td></tr>
               ))}
             </tbody>
           </table>
         )}
       </section>
     </main>
+    </>
   )
 }
