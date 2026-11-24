@@ -3,11 +3,14 @@ import { parseCsv } from './csv.js'
 import ExpenseForm from './ExpenseForm.jsx'
 import { useStored } from './storage.js'
 import Budgets from './Budgets.jsx'
+import Charts from './Charts.jsx'
 
 export default function App() {
   const [expenses, setExpenses] = useStored('expenses', [])
   const [budgets, setBudgets] = useStored('budgets', {})
   const [message, setMessage] = useState('')
+  const latest = expenses.map(x => x.date.slice(0, 7)).sort().pop()
+  const [month, setMonth] = useState(latest || new Date().toISOString().slice(0, 7))
 
   const upload = async e => {
     const file = e.target.files[0]
@@ -35,7 +38,8 @@ export default function App() {
         {message && <p>{message}</p>}
         <ExpenseForm onAdd={x => setExpenses(prev => [...prev, x])} />
       </section>
-      <Budgets expenses={expenses} budgets={budgets} setBudgets={setBudgets} />
+      <Budgets expenses={expenses} budgets={budgets} setBudgets={setBudgets} month={month} setMonth={setMonth} />
+      <Charts expenses={expenses} budgets={budgets} month={month} />
       <section>
         <div className="row">
           <h2>Expenses</h2>

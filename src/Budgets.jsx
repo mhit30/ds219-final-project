@@ -3,9 +3,7 @@ import { useState } from 'react'
 const money = n => `$${n.toFixed(2)}`
 const sum = (obj, keys) => keys.reduce((total, k) => total + (obj[k] || 0), 0)
 
-export default function Budgets({ expenses, budgets, setBudgets }) {
-  const latest = expenses.map(x => x.date.slice(0, 7)).sort().pop()
-  const [month, setMonth] = useState(latest || new Date().toISOString().slice(0, 7))
+export default function Budgets({ expenses, budgets, setBudgets, month, setMonth }) {
   const [newCategory, setNewCategory] = useState('')
 
   const spent = {}
