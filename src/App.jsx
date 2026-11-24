@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { parseCsv } from './csv.js'
 import ExpenseForm from './ExpenseForm.jsx'
+import { useStored } from './storage.js'
 
 export default function App() {
-  const [expenses, setExpenses] = useState([])
+  const [expenses, setExpenses] = useStored('expenses', [])
   const [message, setMessage] = useState('')
 
   const upload = async e => {
@@ -33,7 +34,10 @@ export default function App() {
         <ExpenseForm onAdd={x => setExpenses(prev => [...prev, x])} />
       </section>
       <section>
-        <h2>Expenses</h2>
+        <div className="row">
+          <h2>Expenses</h2>
+          {sorted.length > 0 && <button onClick={() => setExpenses([])}>Clear all</button>}
+        </div>
         {sorted.length === 0 ? <p>No expenses yet.</p> : (
           <table>
             <thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Note</th></tr></thead>
