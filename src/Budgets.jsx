@@ -27,12 +27,15 @@ export default function Budgets({ expenses, budgets, setBudgets, month, setMonth
   return (
     <section>
       <div className="head">
-        <h2>Monthly budgets</h2>
-        <input type="month" value={month} onChange={e => e.target.value && setMonth(e.target.value)} />
+        <div>
+          <h2>Monthly budgets</h2>
+          <p className="muted sub">Set a budget once per category; it applies to every month.</p>
+        </div>
+        <label className="row muted">Viewing <input type="month" value={month} onChange={e => e.target.value && setMonth(e.target.value)} /></label>
       </div>
       {categories.length === 0 ? <p>No categories yet. Add expenses or a budget category.</p> : (
         <table>
-          <thead><tr><th>Category</th><th className="num">Spent</th><th className="num">Budget</th><th className="num">Remaining</th></tr></thead>
+          <thead><tr><th>Category</th><th className="num">Spent this month</th><th className="num">Budget (every month)</th><th className="num">Remaining</th></tr></thead>
           <tbody>
             {categories.map(c => {
               const left = budgets[c] == null ? null : budgets[c] - (spent[c] || 0)
