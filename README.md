@@ -34,7 +34,7 @@ docker run -p 5173:5173 my-app:latest
 
 ## How to use the application
 
-[Include a screenshot]
+![Screenshot](./image.png)
 
 ## Additional settings or requirements
 
