@@ -29,7 +29,7 @@ npm run start
 ```
 docker build -f Containerfile -t my-app:latest .
 
-docker run my-app:latest
+docker run -p 5173:5173 my-app:latest
 ```
 
 ## How to use the application
