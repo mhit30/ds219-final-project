@@ -4,7 +4,7 @@ const money = n => `$${n.toFixed(2)}`
 
 export default function Charts({ expenses, budgets, month }) {
   const inMonth = expenses.filter(x => x.date.startsWith(month))
-  if (inMonth.length === 0) return <section><h2>Charts</h2><p>No expenses in {month}.</p></section>
+  if (inMonth.length === 0) return <section><div className="head"><h2>Charts</h2></div><p className="muted">No expenses in {month}.</p></section>
 
   const byCategory = {}
   const byDay = {}
@@ -19,7 +19,7 @@ export default function Charts({ expenses, budgets, month }) {
 
   return (
     <section>
-      <h2>Charts</h2>
+      <div className="head"><h2>Charts</h2></div>
       <h3>Spent vs budget by category</h3>
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={categoryData}>
@@ -28,8 +28,8 @@ export default function Charts({ expenses, budgets, month }) {
           <YAxis />
           <Tooltip formatter={money} />
           <Legend />
-          <Bar dataKey="Spent" fill="#4e79a7" />
-          <Bar dataKey="Budget" fill="#bab0ac" />
+          <Bar dataKey="Spent" fill="#2a9d8f" />
+          <Bar dataKey="Budget" fill="#d9d2c3" />
         </BarChart>
       </ResponsiveContainer>
       <h3>Spending by day</h3>
@@ -39,7 +39,7 @@ export default function Charts({ expenses, budgets, month }) {
           <XAxis dataKey="day" />
           <YAxis />
           <Tooltip formatter={money} labelFormatter={d => `${month}-${String(d).padStart(2, '0')}`} />
-          <Bar dataKey="Spent" fill="#4e79a7" />
+          <Bar dataKey="Spent" fill="#2a9d8f" />
         </BarChart>
       </ResponsiveContainer>
     </section>
